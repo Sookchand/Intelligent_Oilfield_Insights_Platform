@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   # PostgreSQL - Production Telemetry Database
@@ -10,7 +10,7 @@ services:
       POSTGRES_USER: oilfield_user
       POSTGRES_PASSWORD: oilfield_pass
     ports:
-      - "5432:5432"
+      - "5433:5432" # Changed to 5433 to avoid port conflict
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./data/seed_sql.sql:/docker-entrypoint-initdb.d/seed_sql.sql
@@ -32,14 +32,15 @@ services:
       NEO4J_dbms_security_procedures_unrestricted: apoc.*,gds.*
       NEO4J_dbms_memory_heap_max__size: 2G
     ports:
-      - "7474:7474"  # HTTP
-      - "7687:7687"  # Bolt
+      - "7474:7474" # HTTP
+      - "7687:7687" # Bolt
     volumes:
       - neo4j_data:/data
       - neo4j_logs:/logs
       - ./data/seed_graph.cypher:/var/lib/neo4j/import/seed_graph.cypher
     healthcheck:
-      test: ["CMD-SHELL", "cypher-shell -u neo4j -p oilfield_neo4j_pass 'RETURN 1'"]
+      test:
+        ["CMD-SHELL", "cypher-shell -u neo4j -p oilfield_neo4j_pass 'RETURN 1'"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -55,8 +56,8 @@ services:
       MINIO_ROOT_USER: minio_admin
       MINIO_ROOT_PASSWORD: minio_admin_pass
     ports:
-      - "9000:9000"  # API
-      - "9001:9001"  # Console
+      - "9002:9000" # API (changed from 9000 to avoid conflict)
+      - "9003:9001" # Console (changed from 9001 to avoid conflict)
     volumes:
       - minio_data:/data
     healthcheck:
@@ -72,8 +73,8 @@ services:
     image: qdrant/qdrant:latest
     container_name: oilfield-qdrant
     ports:
-      - "6333:6333"  # HTTP API
-      - "6334:6334"  # gRPC
+      - "6333:6333" # HTTP API
+      - "6334:6334" # gRPC
     volumes:
       - qdrant_data:/qdrant/storage
     healthcheck:
@@ -93,26 +94,26 @@ services:
     environment:
       # Database Connections
       POSTGRES_HOST: postgres
-      POSTGRES_PORT: 5432
+      POSTGRES_PORT: 5432 # Internal port (container-to-container)
       POSTGRES_DB: oilfield_production
       POSTGRES_USER: oilfield_user
       POSTGRES_PASSWORD: oilfield_pass
-      
+
       NEO4J_URI: bolt://neo4j:7687
       NEO4J_USER: neo4j
       NEO4J_PASSWORD: oilfield_neo4j_pass
-      
+
       QDRANT_HOST: qdrant
       QDRANT_PORT: 6333
-      
+
       MINIO_ENDPOINT: minio:9000
       MINIO_ACCESS_KEY: minio_admin
       MINIO_SECRET_KEY: minio_admin_pass
       MINIO_BUCKET: hse-reports
-      
+
       # LLM Configuration
       OPENAI_API_KEY: ${OPENAI_API_KEY}
-      
+
       # Application Settings
       LOG_LEVEL: INFO
       ENVIRONMENT: development
@@ -164,4 +165,3 @@ volumes:
 networks:
   oilfield-network:
     driver: bridge
-

@@ -1,271 +1,155 @@
 # Quick Start Guide
 
-Get the Intelligent Oilfield Insights Platform running in 5 minutes!
+## 🚀 Start the Backend in 3 Steps
 
-## 🚀 Local Development (Fastest)
+### Step 1: Setup Virtual Environment (First Time Only)
 
-### Prerequisites
-- Docker Desktop with 8GB+ RAM
-- OpenAI API Key
+Open **Command Prompt** (not PowerShell) and run:
 
-### Steps
-
-```bash
-# 1. Clone and setup
-git clone <repository-url>
-cd IntelligentOilfieldInsightPlatform
-
-# 2. Configure environment
-cp .env.example .env
-# Edit .env and add your OPENAI_API_KEY
-
-# 3. Start everything
-docker-compose up -d
-
-# 4. Wait for services (30 seconds)
-sleep 30
-
-# 5. Initialize databases
-docker-compose exec postgres psql -U oilfield_user -d oilfield_production -f /docker-entrypoint-initdb.d/seed_sql.sql
-docker-compose exec neo4j cypher-shell -u neo4j -p oilfield_neo4j_pass -f /var/lib/neo4j/import/seed_graph.cypher
-
-# 6. Verify
-curl http://localhost:8000/health
+```cmd
+cd c:\Project\IntelligentOilfieldInsightPlatform
+setup_venv.bat
 ```
 
-### Access Points
+This will:
+- ✅ Create a virtual environment in `venv/`
+- ✅ Install all Python dependencies
+- ✅ Prepare the environment for running
 
-| Service | URL | Credentials |
-|---------|-----|-------------|
-| **Frontend** | http://localhost:3000 | - |
-| **Backend API** | http://localhost:8000/docs | - |
-| **Neo4j Browser** | http://localhost:7474 | neo4j / oilfield_neo4j_pass |
-| **MinIO Console** | http://localhost:9001 | minio_admin / minio_admin_pass |
-| **Qdrant Dashboard** | http://localhost:6333/dashboard | - |
+**Note**: You only need to do this once!
 
----
+### Step 2: Ensure Docker is Running
 
-## 🧪 Test the Platform
+Make sure Docker Desktop is running on your machine.
 
-### Test Question 1: Production Analysis
+### Step 3: Run the Backend
 
-```bash
-curl -X POST http://localhost:8000/api/query \
-  -H "Content-Type: application/json" \
-  -d '{
-    "query": "Why is production dropping at Rig Alpha?"
-  }'
+In **Command Prompt**, run:
+
+```cmd
+activate_and_run.bat
 ```
 
-**Expected Response:**
-```json
-{
-  "answer": "Production at Rig Alpha dropped 15% due to faulty Pressure Gauge G-40...",
-  "reasoning_trace": [
-    {"step": 1, "agent": "SQL", "action": "Queried production trends"},
-    {"step": 2, "agent": "Graph", "action": "Traversed Rig→Well→Sensor"},
-    {"step": 3, "agent": "Vector", "action": "Retrieved HSE reports"}
-  ],
-  "graph_path": ["Rig Alpha", "Well W-12", "Pressure Gauge G-40"],
-  "confidence": 0.92
-}
+This will:
+- ✅ Activate the virtual environment
+- ✅ Check if Docker services are running
+- ✅ Start databases if needed
+- ✅ Start the FastAPI backend
+
+## 🌐 Access the API
+
+Once you see this message:
+```
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
 ```
 
-### Test Question 2: Basin Analysis
+Open your browser to:
+- **API Documentation**: http://localhost:8000/docs
+- **Health Check**: http://localhost:8000/health
 
-```bash
-curl -X POST http://localhost:8000/api/query \
-  -H "Content-Type: application/json" \
-  -d '{
-    "query": "Which wells in the Permian Basin are producing below their 30-day average?"
-  }'
+## 🧪 Test a Query
+
+In the Swagger UI (http://localhost:8000/docs):
+
+1. Click on `POST /api/query`
+2. Click "Try it out"
+3. Enter: `{"query": "Why is production dropping at Rig Alpha?"}`
+4. Click "Execute"
+
+## ❌ Troubleshooting
+
+### "ERR_CONNECTION_REFUSED"
+
+**Most Common Cause**: Virtual environment not activated or dependencies not installed
+
+**Solution**:
+```cmd
+REM Step 1: Setup venv (if you haven't already)
+setup_venv.bat
+
+REM Step 2: Run with venv activated
+activate_and_run.bat
 ```
 
-### Test Question 3: Asset Impact
+### "Module not found" errors
 
-```bash
-curl -X POST http://localhost:8000/api/query \
-  -H "Content-Type: application/json" \
-  -d '{
-    "query": "Identify all assets affected by the pump failure at Block-12"
-  }'
+**Cause**: Dependencies not installed in venv
+
+**Solution**:
+```cmd
+venv\Scripts\activate.bat
+pip install -r requirements.txt
 ```
 
----
+### "Port already in use"
 
-## 🛠️ Common Commands
-
-### Using Makefile
-
-```bash
-# Start services
-make up
-
-# View logs
-make logs
-
-# Stop services
-make down
-
-# Run tests
-make test
-
-# Check health
-make health-check
-
-# Reset databases
-make db-reset
-
-# Open shells
-make shell-backend
-make shell-postgres
-make shell-neo4j
-```
-
-### Using Docker Compose
-
-```bash
-# Start services
-docker-compose up -d
-
-# View logs
-docker-compose logs -f backend
-
-# Restart a service
-docker-compose restart backend
-
-# Stop everything
-docker-compose down
-
-# Clean up (including volumes)
-docker-compose down -v
-```
-
----
-
-## ☸️ Kubernetes Deployment
-
-### Minikube (Local K8s)
-
-```bash
-# 1. Start Minikube
-minikube start --cpus=4 --memory=8192
-
-# 2. Enable addons
-minikube addons enable ingress
-minikube addons enable metrics-server
-
-# 3. Deploy
-make k8s-deploy
-
-# 4. Check status
-make k8s-status
-
-# 5. Access services
-minikube service frontend-service -n oilfield-platform
-```
-
-### Cloud Kubernetes
-
-```bash
-# 1. Configure kubectl for your cluster
-# AWS: aws eks update-kubeconfig --name oilfield-cluster
-# GCP: gcloud container clusters get-credentials oilfield-cluster
-# Azure: az aks get-credentials --name oilfield-cluster
-
-# 2. Create secrets
-kubectl create secret generic oilfield-secrets \
-  --from-literal=OPENAI_API_KEY=<your-key> \
-  --from-literal=POSTGRES_PASSWORD=<password> \
-  --from-literal=NEO4J_PASSWORD=<password> \
-  --from-literal=MINIO_ACCESS_KEY=<key> \
-  --from-literal=MINIO_SECRET_KEY=<secret> \
-  -n oilfield-platform
-
-# 3. Deploy
-make k8s-deploy
-
-# 4. Get ingress IP
-kubectl get ingress -n oilfield-platform
-```
-
----
-
-## 🔍 Troubleshooting
-
-### Services won't start
-
-```bash
-# Check Docker resources
-docker system df
-
-# Clean up
-docker system prune -f
-
-# Restart Docker Desktop
-```
-
-### Database connection errors
-
-```bash
-# Check if databases are ready
-docker-compose ps
-
-# View database logs
-docker-compose logs postgres
-docker-compose logs neo4j
-
-# Restart databases
-docker-compose restart postgres neo4j
-```
-
-### Port already in use
-
-```bash
-# Find process using port
-# Windows:
+**Solution**:
+```cmd
 netstat -ano | findstr :8000
-
-# Linux/Mac:
-lsof -i :8000
-
-# Kill process or change port in docker-compose.yml
+taskkill /PID <PID> /F
 ```
 
----
+### Backend starts but crashes immediately
 
-## 📚 Next Steps
+**Check the error message** in the Command Prompt window. Common issues:
+- Database not running: `docker-compose up -d postgres neo4j qdrant minio`
+- Wrong Python version: Need Python 3.11+
+- Missing .env file: `copy .env.example .env`
 
-1. **Read Full Documentation**
-   - `IMPLEMENTATION_GUIDE.md` - Complete implementation details
-   - `DEPLOYMENT.md` - Production deployment guide
-   - `SOLUTION_SUMMARY.md` - Architecture overview
+## 📋 Manual Steps (Alternative)
 
-2. **Explore the Code**
-   - `backend/agents/` - Agent implementations
-   - `backend/database/` - Database models
-   - `frontend/components/` - UI components
+If the batch files don't work, here's the manual process:
 
-3. **Run Tests**
-   ```bash
-   make test
-   ```
+```cmd
+REM 1. Activate venv
+venv\Scripts\activate.bat
 
-4. **Deploy to Production**
-   - Follow `DEPLOYMENT.md` for cloud deployment
-   - Configure CI/CD with GitHub Actions
+REM 2. Start databases
+docker-compose up -d postgres neo4j qdrant minio
 
----
+REM 3. Wait for databases
+timeout /t 30
 
-## 🆘 Getting Help
+REM 4. Start backend
+cd backend
+python -m uvicorn main:app --reload --host 0.0.0.0 --port 8000
+```
 
-- **Documentation**: Check `IMPLEMENTATION_GUIDE.md`
-- **Issues**: Review `DEPLOYMENT.md` troubleshooting section
-- **Logs**: `make logs` or `docker-compose logs -f`
+## ✅ Verification Checklist
 
----
+Before starting the backend, verify:
 
-**Ready to go!** 🎉
+- [ ] Docker Desktop is running
+- [ ] Virtual environment exists: `venv\` folder present
+- [ ] Dependencies installed: Run `venv\Scripts\pip.exe list`
+- [ ] Port 8000 is free: `netstat -ano | findstr :8000` returns nothing
+- [ ] Using Command Prompt (not PowerShell)
 
-Start with `make up` and access http://localhost:3000
+## 🎯 What You Should See
+
+When the backend starts successfully:
+
+```
+INFO:     Will watch for changes in these directories: ['C:\\Project\\IntelligentOilfieldInsightPlatform\\backend']
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [12345] using StatReload
+INFO:     Started server process [67890]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+```
+
+Then you can access http://localhost:8000/docs
+
+## 📚 More Help
+
+- **Full Documentation**: See `STARTUP_GUIDE.md`
+- **Implementation Details**: See `IMPLEMENTATION_SUMMARY.md`
+
+## 🆘 Still Having Issues?
+
+1. Make sure you're using **Command Prompt**, not PowerShell
+2. Check that the virtual environment is activated (you should see `(venv)` in your prompt)
+3. Verify dependencies: `pip list | findstr fastapi`
+4. Check Docker: `docker-compose ps`
+5. Look for error messages in the terminal output
 
