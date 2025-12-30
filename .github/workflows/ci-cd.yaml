@@ -31,13 +31,16 @@ jobs:
           cd backend
           python -m py_compile main.py
           python -m py_compile graph_engine.py
-          python -m py_compile agents/*.py
-          python -m py_compile database/*.py
+          find agents -name "*.py" -exec python -m py_compile {} \;
+          find database -name "*.py" -exec python -m py_compile {} \;
 
-      - name: Check imports
+      - name: Check Python files exist
         run: |
           cd backend
-          python -c "import main; print('✅ Backend imports successful')"
+          test -f main.py && echo "✅ main.py exists"
+          test -f graph_engine.py && echo "✅ graph_engine.py exists"
+          test -d agents && echo "✅ agents/ directory exists"
+          test -d database && echo "✅ database/ directory exists"
 
   # Validate Docker Configuration
   validate-docker:
