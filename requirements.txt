@@ -1,0 +1,24 @@
+Dependency Requirements (`requirements.txt`)
+Ensures "Environment Isolation" and handles necessary library dependencies.
+
+```text
+# Agent Orchestration
+langgraph>=0.0.30
+langchain>=0.1.0
+langchain-openai>=0.0.2
+
+# Database Drivers
+psycopg2-binary>=2.9.9
+neo4j>=5.16.0
+pinecone-client>=3.0.0
+
+# API & Pydantic Validation
+fastapi>=0.109.0
+uvicorn>=0.27.0
+pydantic>=2.5.3
+python-dotenv>=1.0.0
+
+# Testing & Quality
+pytest>=7.4.4
+pytest-mock>=3.12.0
+black>=24.1.1
