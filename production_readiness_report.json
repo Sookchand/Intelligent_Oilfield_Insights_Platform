@@ -1,0 +1,216 @@
+{
+  "summary": {
+    "passed": 20,
+    "failed": 1,
+    "warnings": 4,
+    "total": 25,
+    "score": 88.0,
+    "duration_seconds": 136.590585,
+    "auto_fixes": 0
+  },
+  "results": [
+    {
+      "category": "Database",
+      "test": "PostgreSQL Connection",
+      "status": "PASS",
+      "message": "Connected successfully",
+      "details": "",
+      "timestamp": "2026-01-09T13:01:52.431499"
+    },
+    {
+      "category": "Database",
+      "test": "Neo4j Connection",
+      "status": "PASS",
+      "message": "Connected successfully",
+      "details": "",
+      "timestamp": "2026-01-09T13:01:52.444820"
+    },
+    {
+      "category": "Database",
+      "test": "Qdrant Connection",
+      "status": "PASS",
+      "message": "Connected successfully",
+      "details": "",
+      "timestamp": "2026-01-09T13:01:52.504307"
+    },
+    {
+      "category": "Database",
+      "test": "MinIO Connection",
+      "status": "PASS",
+      "message": "Connected successfully",
+      "details": "",
+      "timestamp": "2026-01-09T13:01:52.528127"
+    },
+    {
+      "category": "Data",
+      "test": "PostgreSQL Production Data",
+      "status": "PASS",
+      "message": "Found 104 records",
+      "details": "",
+      "timestamp": "2026-01-09T13:01:52.557164"
+    },
+    {
+      "category": "Data",
+      "test": "Rig Alpha Data",
+      "status": "PASS",
+      "message": "Found 80 records for Rig Alpha",
+      "details": "",
+      "timestamp": "2026-01-09T13:01:52.563494"
+    },
+    {
+      "category": "Data",
+      "test": "Neo4j Graph Data",
+      "status": "PASS",
+      "message": "Found 20 nodes",
+      "details": "",
+      "timestamp": "2026-01-09T13:01:52.592631"
+    },
+    {
+      "category": "Data",
+      "test": "Well W-12 Exists",
+      "status": "PASS",
+      "message": "Well W-12 found in graph",
+      "details": "",
+      "timestamp": "2026-01-09T13:01:52.607620"
+    },
+    {
+      "category": "Data",
+      "test": "Well W-12 Sensors",
+      "status": "PASS",
+      "message": "Found 3 sensors",
+      "details": "",
+      "timestamp": "2026-01-09T13:01:52.619401"
+    },
+    {
+      "category": "API",
+      "test": "Health Endpoint",
+      "status": "PASS",
+      "message": "Health check successful",
+      "details": "",
+      "timestamp": "2026-01-09T13:01:54.700471"
+    },
+    {
+      "category": "API",
+      "test": "Database Status",
+      "status": "PASS",
+      "message": "All databases healthy",
+      "details": "",
+      "timestamp": "2026-01-09T13:01:59.884212"
+    },
+    {
+      "category": "API",
+      "test": "Query Endpoint",
+      "status": "FAIL",
+      "message": "Status: 504",
+      "details": "",
+      "timestamp": "2026-01-09T13:02:32.114737"
+    },
+    {
+      "category": "AI Pipeline",
+      "test": "Query: Why is production dropping at Rig Alpha?...",
+      "status": "PASS",
+      "message": "Confidence: 85%",
+      "details": "",
+      "timestamp": "2026-01-09T13:02:34.693215"
+    },
+    {
+      "category": "AI Pipeline",
+      "test": "Reasoning Trace",
+      "status": "PASS",
+      "message": "4 steps recorded",
+      "details": "",
+      "timestamp": "2026-01-09T13:02:34.693419"
+    },
+    {
+      "category": "AI Pipeline",
+      "test": "Query: Show me all faulty equipment at Rig Alph...",
+      "status": "PASS",
+      "message": "Confidence: 90%",
+      "details": "",
+      "timestamp": "2026-01-09T13:02:36.986082"
+    },
+    {
+      "category": "AI Pipeline",
+      "test": "Reasoning Trace",
+      "status": "PASS",
+      "message": "4 steps recorded",
+      "details": "",
+      "timestamp": "2026-01-09T13:02:36.986344"
+    },
+    {
+      "category": "AI Pipeline",
+      "test": "Query: What is the safety risk at Well W-12?...",
+      "status": "PASS",
+      "message": "Confidence: 85%",
+      "details": "",
+      "timestamp": "2026-01-09T13:02:39.281407"
+    },
+    {
+      "category": "AI Pipeline",
+      "test": "Reasoning Trace",
+      "status": "PASS",
+      "message": "3 steps recorded",
+      "details": "",
+      "timestamp": "2026-01-09T13:02:39.281614"
+    },
+    {
+      "category": "Performance",
+      "test": "Query Response Time",
+      "status": "WARN",
+      "message": "27.08s (10-30s - acceptable for AI queries)",
+      "details": "",
+      "timestamp": "2026-01-09T13:03:06.358807"
+    },
+    {
+      "category": "Performance",
+      "test": "Concurrent Queries",
+      "status": "WARN",
+      "message": "0/5 succeeded",
+      "details": "",
+      "timestamp": "2026-01-09T13:03:33.617408"
+    },
+    {
+      "category": "Error Handling",
+      "test": "Empty Query",
+      "status": "PASS",
+      "message": "Handled gracefully",
+      "details": "",
+      "timestamp": "2026-01-09T13:03:35.691546"
+    },
+    {
+      "category": "Error Handling",
+      "test": "Malformed Request",
+      "status": "PASS",
+      "message": "Rejected properly",
+      "details": "",
+      "timestamp": "2026-01-09T13:03:37.767419"
+    },
+    {
+      "category": "Error Handling",
+      "test": "Nonsensical Query",
+      "status": "WARN",
+      "message": "Status: 504",
+      "details": "",
+      "timestamp": "2026-01-09T13:04:04.883818"
+    },
+    {
+      "category": "Security",
+      "test": "CORS Headers",
+      "status": "WARN",
+      "message": "No CORS headers found",
+      "details": "",
+      "timestamp": "2026-01-09T13:04:06.932968"
+    },
+    {
+      "category": "Security",
+      "test": "Environment Config",
+      "status": "PASS",
+      "message": "Backend configured properly",
+      "details": "",
+      "timestamp": "2026-01-09T13:04:08.985060"
+    }
+  ],
+  "auto_fixes": [],
+  "timestamp": "2026-01-09T13:04:08.985419",
+  "production_ready": false
+}

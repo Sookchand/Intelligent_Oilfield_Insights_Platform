@@ -57,16 +57,17 @@ CREATE (inc045)-[:OCCURRED_AT]->(wellW12)
 CREATE (inc046)-[:OCCURRED_AT]->(wellW15)
 
 // Create Relationships - Incidents to Equipment
-CREATE (inc045)-[:RELATED_TO]->(gaugeG40)
-CREATE (inc046)-[:RELATED_TO]->(pump45)
+CREATE (inc045)-[:RELATED_TO]->(gaugeG40);
+CREATE (inc046)-[:RELATED_TO]->(pump45);
 
-// Create indexes for better query performance
-CREATE INDEX rig_name_idx IF NOT EXISTS FOR (r:Rig) ON (r.name);
-CREATE INDEX well_name_idx IF NOT EXISTS FOR (w:Well) ON (w.name);
-CREATE INDEX sensor_id_idx IF NOT EXISTS FOR (s:Sensor) ON (s.sensor_id);
-CREATE INDEX equipment_id_idx IF NOT EXISTS FOR (e:Equipment) ON (e.id);
-CREATE INDEX incident_id_idx IF NOT EXISTS FOR (i:Incident) ON (i.incident_id);
-CREATE INDEX basin_name_idx IF NOT EXISTS FOR (b:Basin) ON (b.name);
+// Note: Indexes are created separately after data load
+// Run these commands manually in Neo4j Browser if needed:
+// CREATE INDEX rig_name_idx IF NOT EXISTS FOR (r:Rig) ON (r.name);
+// CREATE INDEX well_name_idx IF NOT EXISTS FOR (w:Well) ON (w.name);
+// CREATE INDEX sensor_id_idx IF NOT EXISTS FOR (s:Sensor) ON (s.sensor_id);
+// CREATE INDEX equipment_id_idx IF NOT EXISTS FOR (e:Equipment) ON (e.id);
+// CREATE INDEX incident_id_idx IF NOT EXISTS FOR (i:Incident) ON (i.incident_id);
+// CREATE INDEX basin_name_idx IF NOT EXISTS FOR (b:Basin) ON (b.name);
 
 // Return summary
 MATCH (n)

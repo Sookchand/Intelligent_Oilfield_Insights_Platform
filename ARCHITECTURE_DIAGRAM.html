@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halliburton - Global-to-Local Architecture Diagram</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+        }
+        h1 {
+            color: #E31837;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 1.2em;
+        }
+        .mermaid {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .info {
+            background: #f8f9fa;
+            border-left: 4px solid #E31837;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 4px;
+        }
+        .info h3 {
+            color: #E31837;
+            margin-top: 0;
+        }
+        .legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .legend-color {
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            border: 2px solid #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌍 Global-to-Local Drill-Down Architecture</h1>
+        <p class="subtitle">Halliburton Intelligent Oilfield Insights Platform</p>
+        
+        <div class="mermaid">
+graph TB
+    subgraph "Tier 1: Global View - 10,000 Assets"
+        A[Geospatial Cluster Map]
+        A1[Permian Basin<br/>1,200 wells<br/>🔴 Critical]
+        A2[Eagle Ford<br/>800 wells<br/>🟠 Warning]
+        A3[Bakken<br/>650 wells<br/>🟢 Healthy]
+        A4[North Sea<br/>450 wells<br/>🟢 Healthy]
+        A5[Gulf of Mexico<br/>320 wells<br/>🟠 Warning]
+    end
+    
+    subgraph "Tier 2: Exception View - Top 10 Alerts"
+        B[Critical Alerts Sidebar]
+        B1[Rig Alpha<br/>-24.5% production<br/>94% confidence]
+        B2[Well PB-1247<br/>Sensor cascade<br/>91% confidence]
+        B3[Rig Beta<br/>Pressure anomaly<br/>88% confidence]
+    end
+    
+    subgraph "Tier 3: Detail View - Single Asset"
+        C[Individual Asset Analysis]
+        C1[SQL: Production Data]
+        C2[Graph: Dependencies]
+        C3[Vector: HSE Reports]
+        C4[Reasoning: Root Cause]
+    end
+    
+    subgraph "Multi-Agent Intelligence Layer"
+        D1[SQL Agent<br/>Production Analysis]
+        D2[Graph Agent<br/>Systemic Faults]
+        D3[Vector Agent<br/>Historical Context]
+        D4[Reasoning Agent<br/>Confidence Synthesis]
+    end
+    
+    A --> A1
+    A --> A2
+    A --> A3
+    A --> A4
+    A --> A5
+    
+    A1 -.Filters.-> B
+    B --> B1
+    B --> B2
+    B --> B3
+    
+    B1 -.Drills Down.-> C
+    C --> C1
+    C --> C2
+    C --> C3
+    C --> C4
+    
+    D1 -->|Colors Clusters| A1
+    D2 -->|Colors Clusters| A1
+    D3 -->|Colors Clusters| A1
+    D4 -->|Colors Clusters| A1
+    
+    D1 -->|Surfaces Alerts| B1
+    D2 -->|Surfaces Alerts| B1
+    D3 -->|Surfaces Alerts| B1
+    D4 -->|Surfaces Alerts| B1
+    
+    style A fill:#E31837,stroke:#B91329,color:#fff
+    style A1 fill:#EF4444,stroke:#DC2626,color:#fff
+    style A2 fill:#FF6B35,stroke:#E55A25,color:#fff
+    style A3 fill:#10B981,stroke:#059669,color:#fff
+    style A4 fill:#10B981,stroke:#059669,color:#fff
+    style A5 fill:#FF6B35,stroke:#E55A25,color:#fff
+    style B fill:#E31837,stroke:#B91329,color:#fff
+    style B1 fill:#EF4444,stroke:#DC2626,color:#fff
+    style B2 fill:#EF4444,stroke:#DC2626,color:#fff
+    style B3 fill:#FF6B35,stroke:#E55A25,color:#fff
+    style C fill:#0066CC,stroke:#004C99,color:#fff
+    style C1 fill:#10B981,stroke:#059669,color:#fff
+    style C2 fill:#8B5CF6,stroke:#7C3AED,color:#fff
+    style C3 fill:#3B82F6,stroke:#2563EB,color:#fff
+    style C4 fill:#F59E0B,stroke:#D97706,color:#fff
+    style D1 fill:#10B981,stroke:#059669,color:#fff
+    style D2 fill:#8B5CF6,stroke:#7C3AED,color:#fff
+    style D3 fill:#3B82F6,stroke:#2563EB,color:#fff
+    style D4 fill:#F59E0B,stroke:#D97706,color:#fff
+        </div>
+
+        <div class="info">
+            <h3>📊 Architecture Overview</h3>
+            <p><strong>The Challenge:</strong> Halliburton manages 10,000+ wells, rigs, and sensors globally. Traditional dashboards fail due to information overload.</p>
+            
+            <p><strong>The Solution:</strong> A three-tier "Global-to-Local" drill-down strategy powered by multi-agent AI:</p>
+            
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #EF4444;"></div>
+                    <span><strong>Critical:</strong> >15% assets failing</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #FF6B35;"></div>
+                    <span><strong>Warning:</strong> >20% with alerts</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #10B981;"></div>
+                    <span><strong>Healthy:</strong> All systems normal</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #10B981;"></div>
+                    <span><strong>SQL Agent:</strong> Production data</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #8B5CF6;"></div>
+                    <span><strong>Graph Agent:</strong> Dependencies</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #3B82F6;"></div>
+                    <span><strong>Vector Agent:</strong> HSE reports</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #F59E0B;"></div>
+                    <span><strong>Reasoning Agent:</strong> Synthesis</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+    </script>
+</body>
+</html>
+

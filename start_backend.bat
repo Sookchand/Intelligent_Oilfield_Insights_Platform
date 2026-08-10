@@ -39,8 +39,19 @@ if errorlevel 1 (
 )
 
 echo.
-echo Starting FastAPI backend on http://localhost:8000
-echo API Documentation will be available at http://localhost:8000/docs
+echo Killing any existing backend process on port 8000...
+for /f "tokens=5" %%a in ('netstat -aon ^| find ":8000" ^| find "LISTENING"') do (
+    echo Killing PID: %%a
+    taskkill /F /PID %%a
+)
+timeout /t 2 /nobreak >nul
+
+echo.
+echo Starting FastAPI backend with Query Validation System...
+echo Backend: http://localhost:8000
+echo API Docs: http://localhost:8000/docs
+echo.
+echo Look for: "Query validator initialized" in the logs
 echo.
 echo Press Ctrl+C to stop the server
 echo.
