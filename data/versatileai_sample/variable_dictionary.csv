@@ -1,0 +1,31 @@
+variable_id,description,unit,equipment_area,known_relationships
+VAR_001,Rig Alpha / Well W12 choke valve position,%,Wellhead-W12,Primary driver of Well W12 wellhead pressure and flow rate
+VAR_002,Rig Alpha / Well W12 wellhead pressure,psi,Wellhead-W12,Driven by choke position (VAR_001); drives flow rate
+VAR_003,Rig Alpha / Well W12 wellhead temperature,degF,Wellhead-W12,Weakly driven by flow rate
+VAR_004,Rig Alpha / Well W12 liquid flow rate,bbl/d,Wellhead-W12,"Driven by choke position and wellhead pressure (VAR_001, VAR_002); feeds separator"
+VAR_005,Rig Beta / Well W15 choke valve position,%,Wellhead-W15,Primary driver of Well W15 wellhead pressure and flow rate
+VAR_006,Rig Beta / Well W15 wellhead pressure,psi,Wellhead-W15,Driven by choke position (VAR_005); drives flow rate
+VAR_007,Rig Beta / Well W15 wellhead temperature,degF,Wellhead-W15,Weakly driven by flow rate
+VAR_008,Rig Beta / Well W15 liquid flow rate,bbl/d,Wellhead-W15,"Driven by choke position and wellhead pressure (VAR_005, VAR_006); feeds separator"
+VAR_009,Rig Gamma / Well W20 choke valve position,%,Wellhead-W20,Primary driver of Well W20 wellhead pressure and flow rate
+VAR_010,Rig Gamma / Well W20 wellhead pressure,psi,Wellhead-W20,Driven by choke position (VAR_009); drives flow rate
+VAR_011,Rig Gamma / Well W20 wellhead temperature,degF,Wellhead-W20,Weakly driven by flow rate
+VAR_012,Rig Gamma / Well W20 liquid flow rate,bbl/d,Wellhead-W20,"Driven by choke position and wellhead pressure (VAR_009, VAR_010); feeds separator"
+VAR_013,Rig Delta / Well W25 choke valve position,%,Wellhead-W25,Primary driver of Well W25 wellhead pressure and flow rate
+VAR_014,Rig Delta / Well W25 wellhead pressure,psi,Wellhead-W25,Driven by choke position (VAR_013); drives flow rate
+VAR_015,Rig Delta / Well W25 wellhead temperature,degF,Wellhead-W25,Weakly driven by flow rate
+VAR_016,Rig Delta / Well W25 liquid flow rate,bbl/d,Wellhead-W25,"Driven by choke position and wellhead pressure (VAR_013, VAR_014); feeds separator"
+VAR_017,Separator pressure,psi,Separator,Driven by combined wellhead flow from all wells
+VAR_018,Separator liquid level,%,Separator,Driven by combined wellhead flow vs. pump offtake
+VAR_019,Separator temperature,degF,Separator,Driven by average wellhead temperature
+VAR_020,Export pump suction pressure,psi,Pump System,Driven by separator pressure (VAR_017)
+VAR_021,Export pump discharge pressure,psi,Pump System,Driven by pump suction pressure (VAR_020) and pump speed
+VAR_022,Export pump speed,RPM,Pump System,Control-loop setpoint variable; drives discharge pressure
+VAR_023,Export pump bearing vibration,mm/s,Pump System,Driven by pump speed (VAR_022); early indicator of mechanical wear
+VAR_024,Export pump motor current,A,Pump System,"Driven by pump speed and discharge pressure (VAR_022, VAR_021)"
+VAR_025,Gas compressor suction pressure,psi,Compressor,Driven by separator pressure (VAR_017)
+VAR_026,Gas compressor discharge pressure,psi,Compressor,Driven by compressor suction pressure (VAR_025)
+VAR_027,Gas compressor vibration,mm/s,Compressor,Early indicator of surge/mechanical wear
+VAR_028,Export pipeline pressure,psi,Pipeline/Export,Driven by pump discharge pressure (VAR_021); downstream blockages back-propagate here
+VAR_029,Tank farm level,%,Tank Farm,Driven by pump discharge pressure (VAR_021) and export offtake
+VAR_030,Export gas flow rate,Mscf/d,Compressor,Driven by compressor discharge pressure (VAR_026)

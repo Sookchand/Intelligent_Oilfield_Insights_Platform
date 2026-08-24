@@ -1,0 +1,11 @@
+incident_id,start_timestamp,end_timestamp,suspected_root_cause_variable,description
+INC_001,2026-01-09T06:00:00Z,2026-01-09T09:00:00Z,VAR_001,"Choke valve stiction on Well W-12: valve fails to respond to setpoint changes, causing wellhead pressure build-up and a flow rate drop"
+INC_002,2026-01-19T02:00:00Z,2026-01-19T10:00:00Z,VAR_023,Export pump mechanical seal wear: vibration ramps up over several hours with a corresponding dip in discharge pressure
+INC_003,2026-01-28T10:00:00Z,2026-01-28T15:00:00Z,VAR_018,"Separator level control valve stuck: level oscillates outside normal band, disturbing separator pressure"
+INC_004,2026-02-06T00:00:00Z,2026-02-06T12:00:00Z,VAR_011,Wellhead temperature sensor failure on Well W-20: reading freezes (flatlines) for the duration of the fault
+INC_005,2026-02-15T04:00:00Z,2026-02-15T08:00:00Z,VAR_027,Gas compressor surge event: vibration spikes and oscillates with correlated discharge pressure swings
+INC_006,2026-02-24T08:00:00Z,2026-02-24T14:00:00Z,VAR_028,"Downstream export pipeline blockage: pipeline pressure ramps upward, back-propagating into pump discharge pressure"
+INC_007,2026-03-05T00:00:00Z,2026-03-06T00:00:00Z,VAR_005,Choke trim erosion on Well W-15: flow rate gradually increases beyond the expected response for the commanded choke position
+INC_008,2026-03-17T13:00:00Z,2026-03-17T15:00:00Z,VAR_022,"Brief power dip trips the export pump: speed collapses to near zero then recovers, with a transient suction pressure build-up"
+INC_009,2026-03-30T05:00:00Z,2026-03-30T15:00:00Z,VAR_029,Tank farm export valve fault: tank level climbs continuously toward high-high instead of holding around its normal setpoint
+INC_010,2026-04-09T09:00:00Z,2026-04-09T15:00:00Z,VAR_014,Wellhead pressure gauge failure on Well W-25: reading freezes (flatlines) for the duration of the fault
